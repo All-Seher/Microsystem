@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - preConditions:
+      - onFail: WARN
+      - tableExists:
+          tableName: roles
+      - tableIsEmpty:
+          tableName: roles
+
+  - changeSet:
+      id: add-admin-role
+      author: All_Seher (generated)
+      changes:
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: role
+                  value: 'ADMIN'
+
+  - changeSet:
+      id: add-user-role
+      author: All_Seher (generated)
+      changes:
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: role
+                  value: 'USER'

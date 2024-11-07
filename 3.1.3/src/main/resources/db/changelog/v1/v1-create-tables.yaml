@@ -1,0 +1,95 @@
+databaseChangeLog:
+  - preConditions:
+      - dbms:
+          type: postgresql
+      - runningAs:
+          username: postgres
+  - changeSet:
+      id: users-create-table
+      author: All_Seher (generated)
+      preConditions:
+        - onFail: WARN
+        - not:
+            - tableExists:
+                tableName: users
+      comment: Таблица уже существует
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(50)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: surname
+                  type: varchar(50)
+              - column:
+                  name: password
+                  type: varchar(150)
+
+  - changeSet:
+      id: roles-create-table
+      author: All_Seher (generated)
+      preConditions:
+        - onFail: WARN
+        - not:
+            - tableExists:
+                tableName: roles
+      comment: Таблица уже существует
+      changes:
+        - createTable:
+            tableName: roles
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: role
+                  type: varchar(50)
+                  constraints:
+                    nullable: true
+
+  - changeSet:
+      preConditions:
+        - onFail: WARN
+        - not:
+            - tableExists:
+                tableName: users_roles
+      comment: Таблица уже существует
+      id: users_roles-create-table
+      author: All_Seher (generated)
+      changes:
+        - createTable:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: user_id
+                  type: bigint
+              - column:
+                  name: roles_id
+                  type: bigint
+
+        - addForeignKeyConstraint:
+            baseTableName: users_roles
+            baseColumnNames: user_id
+            constraintName: fk_user_roles_user
+            referencedTableName: users
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableName: users_roles
+            baseColumnNames: roles_id
+            constraintName: fk_user_roles_role
+            referencedTableName: roles
+            referencedColumnNames: id
