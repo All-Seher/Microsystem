@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - preConditions:
+      - onFail: WARN
+      - tableExists:
+          tableName: users
+      - tableIsEmpty:
+          tableName: users
+
+  - changeSet:
+      id: add-admin-user
+      author: All_Seher (generated)
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: 'admin'
+              - column:
+                  name: surname
+                  value: 'admin'
+              - column:
+                  name: password
+                  value: '{bcrypt}$2a$12$qmev9zLVJGhhqoXaD.E42OrkbG76mQWkujG0RqYgsYXJgbL4FU1ai'
+#  {bcrypt}$2a$10$T8l5myC6ntsQ.KRz9uuiDOweJN0alPylAr.zElvqCyr45KF8Vy5WK
