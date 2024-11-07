@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface UserMapper {
-    User userDtoToUser(UserDto user, @Context RoleRepository roleRepository);
     User userCreationDtoToUser(UserCreationDto userCreationDto, @Context RoleService roleService);
     UserDto userToUserDTO(User user);
     List<UserDto> userListToUserDtoList(List<User> users);
